@@ -1,0 +1,16 @@
+<#@ template language="C#" debug="True" hostSpecific="True"                        #>
+<#@ output extension=".generated.cs"                                               #>
+<#@ include file="$(ProjectDir)LinqToDB.Templates\LinqToDB.Access.Tools.ttinclude" #>
+<#@ include file="$(ProjectDir)LinqToDB.Templates\PluralizationService.ttinclude"  #>
+<#@ import namespace ="System.IO" #>
+<#
+	NamespaceName = "AccessConsole.DataModels";
+
+	string path = String.Concat(
+		Path.GetDirectoryName(Host.TemplateFile),
+		"../../App_Data/");
+	//LoadAccessMetadata(path, "ProjectData.mdb");
+	LoadAccessMetadata($@"Provider=Microsoft.Jet.OLEDB.4.0;Data Source={path}\ProjectData.mdb;Jet OLEDB:Database Password=12459115");
+
+	GenerateModel();
+#>
